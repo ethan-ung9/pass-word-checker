@@ -1,0 +1,78 @@
+'''
+*****************************************************************
+
+Code by: Ethan Ung
+File created: October 14, 2024
+
+*****************************************************************
+This file is used to calculate how many groups the password containes such as uppercase, lowercase, numbers and symbols.
+It also outputs the password strength based on the length and the amount of groups the password has. 
+'''
+
+def count_groups(pwd): #creates the function
+    lower = "abcdefghijklmnopqrstuvwxyz" #variable for lower case letters
+    upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' #variable for upper case letters
+    digits = '0123456789' #variable for digits in the passsword
+    symbols = '!@#$%^&*/?-+=,.|~' #variable for special symbols
+    group = int(0) #starts gropu with 0
+    for i in pwd: #for loop to iterate through passowrd
+        if i in lower: #checks to see if the password has a lower case letter
+            group += 1 #increments group by 1
+            break #once it increments, it stops checking for additional occurences in this category
+    for i in pwd: #for loop to iterate through passowrd
+        if i in upper: #checks to see if the password has an upper case letter
+            group += 1 #increments group by 1
+            break #once it increments, it stops checking for additional occurences in this category
+    for i in pwd: #for loop to iterate through passowrd
+        if i in digits: #checks to see if the password has a number in it
+            group += 1 #increments group by 1
+            break #once it increments, it stops checking for additional occurences in this category
+    for i in pwd: #for loop to iterate through passowrd
+        if i in symbols: #checks to see if the password has a special symbol
+            group += 1 #increments group by 1
+            break #once it increments, it stops checking for additional occurences in this category
+
+    return group #returns group
+            
+
+
+
+def password_strength(pwd): #creates function to 
+    length = len(pwd) #finds the length of the password
+    groups = count_groups(pwd) #calls the function to count how many groups the password has
+    # print(length)
+    # print(groups)
+
+    if ' ' in pwd or '\t' in pwd or '\n' in pwd: #returns 0 if there is a space between, tab or new line in the password
+        return 0 #returns 0
+    
+    elif length < 5: #if the password is longer than 5
+        if 0 <= groups <= 4: #if the password is between groups 0-4 return 0
+            return 0
+    
+    elif 5 <= length <= 8: #if password length is between 5-8
+        if 0 <= groups <= 1: #if between groups 0-1 return 1
+            return 1
+        elif 2 <= groups <= 3: #if between groups 2-3 return 2
+            return 2
+        elif groups == 4: #if groups is 4 return 3 
+            return 3
+        
+    elif 9 <= length <= 12: #if length of password is between 9-12
+        if 0 <= groups <= 1: #if groups is between 0-1 return 2
+            return 2
+        elif 2 <= groups <= 3:#if the groups is between 2-3 for the password return 3
+            return 3
+        elif groups == 4: #if the groups is 4 then return 4
+            return 4
+        
+    elif length >= 12: #if the length is greater than or equal to 12 
+        if 0 <= groups <= 1: #if the password groups is between 0-1 return 3
+            return 3
+        elif 2 <= groups <=3: #if the password groups is between 2-3 return 4
+            return 4
+        elif groups == 4: #if the password groups is 4, return 5
+            return 5
+
+
+
